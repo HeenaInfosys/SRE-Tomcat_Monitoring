@@ -1,0 +1,11 @@
+---
+description: implement site reliability workflow
+enabled: true
+runner_type: mistral-v2
+entry_point: workflows/site-reliability-workflow.yaml
+name: site-reliability-workflow
+pack: nagios
+parameters:
+  buffer_list:
+    default: null
+    type: string

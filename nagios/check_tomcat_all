@@ -1,0 +1,201 @@
+#!/bin/bash
+
+function activate_debug()
+{
+set -x
+}
+function init_flags()
+{
+flag_critical=false
+flag_warning=false
+
+
+}
+
+function check_for_memory()
+{
+     /usr/local/nagios/libexec/check_tomcat -n tomcat -k memory -w 60 -c 65;
+}
+function check_for_threads()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k threads -w 20 -c 10;
+}
+function check_for_sessions()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k sessions -w 25 -c 15;
+}
+function check_for_gc()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k gc -w 75 -c 90;
+}
+function check_for_requestthroughput()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k requestthroughput -w 75 -c 90;
+}
+    
+function check_for_responsetime()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k responsetime -w 75 -c 90;
+}
+function check_for_pools()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k pools -w 75 -c 90;
+}
+function check_for_uptime()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k uptime -w 10 -c 24;
+}
+function check_for_errorcount()
+{
+      /usr/local/nagios/libexec/check_tomcat -n tomcat -k errorcount -w 75 -c 90;
+}
+function is_memory_ok()
+{
+        if [[ "$(check_for_memory)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true
+        elif [[ "$(check_for_memory)" =~ ^(WARNING) ]] 
+         then
+          flag_warning=true
+        fi
+}
+function is_threads_ok()
+{
+       if [[ "$(check_for_threads)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true
+        elif [[ "$(check_for_threads)" =~ ^(WARNING) ]] 
+then         
+flag_warning=true
+        fi
+}
+function is_sessions_ok()
+{
+        if [[ "$(check_for_sessions)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true;
+        elif [[ "$(check_for_sessions)" =~ ^(WARNING) ]] 
+then    
+     flag_warning=true;
+        fi
+}
+function is_gc_ok()
+{
+        if [[ "$(check_for_gc)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true
+        elif [[ "$(check_for_gc)" =~ ^(WARNING) ]] 
+then    
+     flag_warning=true
+        fi
+}
+function is_requestthroughput_ok()
+{
+        if [[ "$(check_for_requestthroughput)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true
+        elif [[ "$(check_for_requestthroughput)" =~ ^(WARNING) ]] 
+then    
+     flag_warning=true
+        fi
+}
+function is_responsetime_ok()
+{
+        if [[ "$(check_for_responsetime)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true
+        elif [[ "$(check_for_responsetime)" =~ ^(WARNING) ]] 
+then    
+     flag_warning=true
+        fi
+}
+function is_uptime_ok()
+{
+        if [[ "$(check_for_uptime)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true;
+        elif [[ "$(check_for_uptime)" =~ ^(WARNING) ]] 
+then    
+     flag_warning=true
+        fi
+}
+function is_pools_ok()
+{
+        if [[ "$(check_for_pools)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true
+        elif [[ "$(check_for_pools)" =~ ^(WARNING) ]] 
+then    
+     flag_warning=true
+        fi
+} 
+function is_errorcount_ok()
+{
+       if [[ "$(check_for_errorcount)" =~ ^(CRITICAL) ]] 
+        then
+         flag_critical=true
+        elif [[ "$(check_for_errorcount)" =~ ^(WARNING) ]] 
+then    
+     flag_warning=true
+        fi
+} 
+
+
+function get_output()
+{
+# activate_debug
+init_flags
+is_memory_ok
+is_threads_ok
+is_sessions_ok
+is_gc_ok
+is_requestthroughput_ok
+is_responsetime_ok
+is_uptime_ok
+is_pools_ok
+is_errorcount_ok
+}
+
+function set_error_code()
+{
+ ERROR_CODE=${1}
+}
+
+function get_error_code()
+{
+echo -e "${ERROR_CODE}"
+}
+
+function get_exit_stat()
+{
+ echo "${EXIT_STAT:-3}"
+}
+function set_exit_stat()
+{
+if [ "${flag_critical}" = true ];
+then
+  EXIT_STAT=2
+elif [ "${flag_warning}" = true ];
+then
+   EXIT_STAT=1
+else
+   EXIT_STAT=0
+fi
+}
+
+
+
+get_output
+if [ "${flag_critical}" = true ];
+then 
+   set_error_code "CRITICAL"
+elif [ "${flag_warning}" = true ];
+then
+   set_error_code "WARNING"
+else
+   set_error_code "OK"
+fi
+
+get_error_code
+set_exit_stat
+exit "$(get_exit_stat)"

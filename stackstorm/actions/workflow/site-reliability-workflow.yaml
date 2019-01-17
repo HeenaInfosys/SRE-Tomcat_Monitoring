@@ -1,0 +1,50 @@
+version: '2.0'
+
+nagios.site-reliability-workflow:
+    description: A basic workflow for use case implementation.
+    type: direct
+    input:
+       - buffer_list
+    output:
+        stdout: <% $.stdout %>
+    tasks:
+        schedule_task_1:
+            on-complete:
+              - get_path
+        get_path:
+            action: nagios.get_path
+            publish:
+                path: <% task(get_path).result.stdout %>
+                flow_error: <% task(get_path).result.stderr %>
+            on-success:
+              - find_error
+        find_error:
+            action: nagios.find_error buffer_list=<% $.buffer_list %> 
+            publish:
+                error_code: <% task(find_error).result.stdout %>
+                flow_error: <% task(find_error).result.stderr %>
+            on-error:
+              - no_remedy
+            on-success:
+              - auto_remediate: <% $.error_code != '' and  $.flow_error = '' %>
+              - post_success: <% $.error_code = '' and $.flow_error = '' %>
+        auto_remediate:
+            action: nagios.auto_remediate error_code=<% $.error_code %> buffer_code=<% $.buffer_list %>  path=<% $.path %>
+            publish:
+                buffer_list: <% task(auto_remediate).result.stdout %>
+                flow_error: <% task(auto_remediate).result.stderr %>
+            on-error:
+              - no_remedy
+            on-success:
+              - find_error: <% $.flow_error = '' %>
+        no_remedy:
+            action: core.local cmd="echo no remedy"
+            publish:
+                stdout: <% task(no_remedy).result.stdout %>
+                flow_error: <% task(no_remedy).result.stderr %>
+        post_success:
+            action: core.local cmd="echo success"
+            publish:
+                stdout: <% task(post_success).result.stdout %>
+                flow_error: <% task(post_success).result.stderr %>
+

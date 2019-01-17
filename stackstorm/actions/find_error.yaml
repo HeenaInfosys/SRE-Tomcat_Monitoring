@@ -1,0 +1,15 @@
+---
+name: "find_error"
+runner_type: "local-shell-script"
+description: "script to find error"
+enabled: true
+entry_point: "find_error.sh"
+pack: "nagios"
+parameters:
+    buffer_list:
+        type: "string"
+        description: "Your error code i.e MEMORY, THREAD, APPS"
+        required: false
+        position: 0
+        default: null
+

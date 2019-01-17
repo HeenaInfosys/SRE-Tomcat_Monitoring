@@ -1,0 +1,8 @@
+---
+name: "get_path"
+runner_type: "local-shell-script"
+description: "script to get tomcat path"
+enabled: true
+entry_point: "get_path.sh"
+pack: "nagios"
+
