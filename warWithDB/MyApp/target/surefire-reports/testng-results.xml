@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="13" passed="13">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Command line suite" duration-ms="20" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="20" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+      <class name="com.psl.testng.LoginCase">
+        <test-method status="PASS" signature="testSplCharPwd()[pri:0, instance:com.psl.testng.LoginCase@b65a68]" name="testSplCharPwd" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testSplCharUser()[pri:0, instance:com.psl.testng.LoginCase@b65a68]" name="testSplCharUser" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testValidUser()[pri:0, instance:com.psl.testng.LoginCase@b65a68]" name="testValidUser" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testBlankPwd()[pri:0, instance:com.psl.testng.LoginCase@b65a68]" name="testBlankPwd" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testBlankUser()[pri:0, instance:com.psl.testng.LoginCase@b65a68]" name="testBlankUser" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+      </class>
+      <class name="com.psl.testng.testNGCase">
+        <test-method status="PASS" signature="testList1NotEmpty()[pri:0, instance:com.psl.testng.testNGCase@fe2509]" name="testList1NotEmpty" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testListNotEmpty()[pri:0, instance:com.psl.testng.testNGCase@fe2509]" name="testListNotEmpty" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testList1Empty()[pri:0, instance:com.psl.testng.testNGCase@fe2509]" name="testList1Empty" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testListEmpty()[pri:0, instance:com.psl.testng.testNGCase@fe2509]" name="testListEmpty" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+      </class>
+      <class name="com.psl.testng.AddInvDtlsCase">
+        <test-method status="PASS" signature="testForValidFields()[pri:0, instance:com.psl.testng.AddInvDtlsCase@131767b]" name="testForValidFields" duration-ms="10" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testBlankFields()[pri:0, instance:com.psl.testng.AddInvDtlsCase@131767b]" name="testBlankFields" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testPriceRange()[pri:0, instance:com.psl.testng.AddInvDtlsCase@131767b]" name="testPriceRange" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+        <test-method status="PASS" signature="testSplChar()[pri:0, instance:com.psl.testng.AddInvDtlsCase@131767b]" name="testSplChar" duration-ms="0" started-at="2015-06-04T12:40:14Z" finished-at="2015-06-04T12:40:14Z">
+        </test-method>
+      </class>
+    </test>
+  </suite>
+</testng-results>
